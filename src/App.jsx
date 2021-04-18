@@ -5,13 +5,24 @@ import "./App.css"
 import { App } from  "./App";
 
 export const App = () => {
+  const [todoText,setTodotext] = useState('');
   const [incompleteTodos,setIncompleteTodos] = useState(['ああああ','いいいいい']);
   const [completeTodos,setCompleteTodos] = useState(["うううう"]);
+
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+
+  const onClickAdd = () => {
+    if(todoText === "") return;
+    const newTodos = [...incompleteTodos,todoText];
+    setIncompleteTodos(newTodos);
+    setTodoText("");
+  }
+
   return (
     <>
     <div>
-      <input placeholder="TODOを入力"/>
-      <button>追加</button>
+      <input placeholder="TODOを入力" value={todoText} onChange={}/>
+      <button onClick={onClickAdd}>追加</button>
     </div>
     <div>
       <p>未完了のTODO</p>
