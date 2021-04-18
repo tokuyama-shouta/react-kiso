@@ -6,8 +6,8 @@ import { App } from  "./App";
 
 export const App = () => {
   const [todoText,setTodotext] = useState('');
-  const [incompleteTodos,setIncompleteTodos] = useState(['ああああ','いいいいい']);
-  const [completeTodos,setCompleteTodos] = useState(["うううう"]);
+  const [incompleteTodos,setIncompleteTodos] = useState([]);
+  const [completeTodos,setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -33,6 +33,15 @@ export const App = () => {
   
   }
 
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index,1);
+
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleteTodos);
+  }
+
   return (
     <>
     <div>
@@ -51,12 +60,6 @@ export const App = () => {
             </div>
           );
         })}
-        
-        <div>
-          <li>いいい</li>
-          <button>完了</button>
-          <button>削除</button>
-        </div>
       </ul>
     </div>
     <div>
@@ -66,7 +69,7 @@ export const App = () => {
           return (
             <div key={todo}>
             <li>aaaaa</li>
-            <button>戻す</button>
+            <button onClick={() => onClickBack(index)}>戻す</button>
           </div>
           );
         })}
